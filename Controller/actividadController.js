@@ -3,7 +3,7 @@ var actividadService = require('./../Services/actividadService.js');
 var ActividadController = function() {
 
 	this.getActividad = function(req, res) {	
-		actividadService.findActividadesByUsuario(1, function(err, recordset) {
+		actividadService.findActividadesByUsuario(req.params.username , function(err, recordset) {
 			if(err) {
 				console.log('error');
 				//res.end();

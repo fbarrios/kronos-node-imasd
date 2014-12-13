@@ -13,8 +13,9 @@ var ActividadRepository = function(connection) {
 				inner join dbo.componente cm on ca.id_padre = cm.id \
 				inner join dbo.componente cp on cm.id_padre = cp.id \
 				inner join dbo.usuario_actividad ua on ua.id_componente = ca.id \
-				where id_usuario = 10 and ca.activo = 1 and cm.activo = 1 and cp.activo = 1\
-				order by cp.nombre, cm.nombre, ca.nombre', callback);
+				inner join dbo.usuario u on u.id = ua.id_usuario \
+				where ca.activo = 1 and cm.activo = 1 and cp.activo = 1 and u.username = \'' + username + '\' ' +
+				'order by cp.nombre, cm.nombre, ca.nombre', callback);
 	}
 }
 

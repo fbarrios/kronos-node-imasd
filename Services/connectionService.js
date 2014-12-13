@@ -19,6 +19,40 @@ var ConnectionService = function() {
 
   }
 
+  this.getConnectionTransactionalRequest = function(myquery, callback) {    
+     
+                 var transaction = new sql.Transaction(new sql.Connection(config, function(err,data){}));
+
+            transaction.begin(function(err) {
+                // ... error checks
+
+                var request = new sql.Request(transaction);
+
+                request.query(myquery, function(err, recordset) {
+                    // ... error checks
+                      
+                      var that = this;
+                      
+                    that.last = recordset[0].last_inserted;
+                    transaction.commit(function(err, recordset) {
+                        // ... error checks
+                        if (!recordset)
+                         recordset = {};
+                        recordset.lastId = that.last;
+                        console.log("Transaction commited.");
+                        callback(err, recordset);
+                        
+                    });
+                });
+            });
+
+
+
+
+
+
+  }
+
 }
 
 module.exports = new ConnectionService();

@@ -7,6 +7,7 @@ var app        = express(); 				// define our app using express
 var bodyParser = require('body-parser');
 
 var actividadController = require('./Controller/actividadController.js');
+var trabajoController = require('./Controller/trabajoController.js');
 
 
 var bears = Array();
@@ -34,6 +35,15 @@ router.get('/usuario/:username/actividades', function(req, res) {
 	actividadController.getActividad(req,res);
 //	res.json({ message: 'hooray! welcome to our api! '+ req.params.username + ' ' + saludo});	
 });
+
+
+router.post('/usuario/:username/actividad/:id_actividad/trabajos', function(req, res) {
+	trabajoController.crearTrabajo(req, res);
+
+
+//	res.json({ message: 'hooray! welcome to our api! '+ req.params.username + ' ' + saludo});	
+});
+
 
 
 

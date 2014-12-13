@@ -1,9 +1,16 @@
- var actividadService = require('./../Services/actividadService.js');
+var actividadService = require('./../Services/actividadService.js');
 
 var ActividadController = function() {
 
-	this.getActividad = function(req, res) {		
-		res.json(actividadService.findActividadesByUsuario(1));
+	this.getActividad = function(req, res) {	
+		actividadService.findActividadesByUsuario(1, function(err, recordset) {
+			if(err) {
+				console.log('error');
+				//res.end();
+			}
+
+			res.json(recordset);
+		});
 	};
 }
 
